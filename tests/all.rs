@@ -312,7 +312,7 @@ dependencies = [
         .unwrap();
     assert_eq!(
         contents,
-        r#"{"name":"filetime","vers":"0.1.10","deps":[{"name":"libc","req":"^0.2","features":[],"optional":false,"default_features":true,"target":null,"kind":null,"package":null},{"name":"tempdir","req":"^0.3","features":[],"optional":false,"default_features":true,"target":null,"kind":"dev","package":null}],"cksum":"5363ab8e4139b8568a6237db5248646e5a8a2f89bd5ccb02092182b11fd3e922","features":{},"yanked":false}"#
+        r#"{"name":"filetime","vers":"0.1.10","deps":[{"name":"libc","req":"^0.2","features":[],"optional":false,"default_features":true,"target":null,"kind":null,"package":null,"registry":null},{"name":"tempdir","req":"^0.3","features":[],"optional":false,"default_features":true,"target":null,"kind":"dev","package":null,"registry":null}],"cksum":"5363ab8e4139b8568a6237db5248646e5a8a2f89bd5ccb02092182b11fd3e922","features":{},"yanked":false}"#
     );
 
     File::create(&lock)
@@ -417,7 +417,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
         .unwrap();
     assert_eq!(
         contents,
-        r#"{"name":"Inflector","vers":"0.11.3","deps":[{"name":"lazy_static","req":"^1.0.0","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null},{"name":"regex","req":"^1.0","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null}],"cksum":"4467f98bb61f615f8273359bf1c989453dfc1ea4a45ae9298f1dcd0672febe5d","features":{"default":["heavyweight"],"heavyweight":["lazy_static","regex"],"lazy_static":["dep:lazy_static"],"regex":["dep:regex"],"unstable":[]},"yanked":false}"#
+        r#"{"name":"Inflector","vers":"0.11.3","deps":[{"name":"lazy_static","req":"^1.0.0","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null},{"name":"regex","req":"^1.0","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null}],"cksum":"4467f98bb61f615f8273359bf1c989453dfc1ea4a45ae9298f1dcd0672febe5d","features":{"default":["heavyweight"],"heavyweight":["lazy_static","regex"],"lazy_static":["dep:lazy_static"],"regex":["dep:regex"],"unstable":[]},"yanked":false}"#
     );
 }
 
@@ -477,7 +477,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
         .unwrap();
     assert_eq!(
         contents,
-        r#"{"name":"rustc-demangle","vers":"0.1.14","deps":[{"name":"compiler_builtins","req":"^0.1.2","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null},{"name":"core","req":"^1.0.0","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":"rustc-std-workspace-core"}],"cksum":"ccc78bfd5acd7bf3e89cffcf899e5cb1a52d6fafa8dec2739ad70c9577a57288","features":{"compiler_builtins":["dep:compiler_builtins"],"core":["dep:core"],"rustc-dep-of-std":["compiler_builtins","core"]},"yanked":false}"#
+        r#"{"name":"rustc-demangle","vers":"0.1.14","deps":[{"name":"compiler_builtins","req":"^0.1.2","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null},{"name":"core","req":"^1.0.0","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":"rustc-std-workspace-core"}],"cksum":"ccc78bfd5acd7bf3e89cffcf899e5cb1a52d6fafa8dec2739ad70c9577a57288","features":{"compiler_builtins":["dep:compiler_builtins"],"core":["dep:core"],"rustc-dep-of-std":["compiler_builtins","core"]},"yanked":false}"#
     );
 }
 
@@ -541,7 +541,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
         .unwrap();
     assert_eq!(
         contents,
-        r#"{"name":"lazy_static","vers":"0.2.11","deps":[{"name":"compiletest_rs","req":"^0.3","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null},{"name":"spin","req":"^0.4.6","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null}],"cksum":"76f033c7ad61445c5b347c7382dd1237847eb1bce590fe50365dcb33d546be73","features":{"compiletest":["compiletest_rs"],"compiletest_rs":["dep:compiletest_rs"],"nightly":[],"spin":["dep:spin"],"spin_no_std":["nightly","spin"]},"yanked":false}"#
+        r#"{"name":"lazy_static","vers":"0.2.11","deps":[{"name":"compiletest_rs","req":"^0.3","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null},{"name":"spin","req":"^0.4.6","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null}],"cksum":"76f033c7ad61445c5b347c7382dd1237847eb1bce590fe50365dcb33d546be73","features":{"compiletest":["compiletest_rs"],"compiletest_rs":["dep:compiletest_rs"],"nightly":[],"spin":["dep:spin"],"spin_no_std":["nightly","spin"]},"yanked":false}"#
     );
 
     contents.clear();
@@ -551,7 +551,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
         .unwrap();
     assert_eq!(
         contents,
-        r#"{"name":"language-tags","vers":"0.2.2","deps":[{"name":"heapsize","req":">=0.2.2, <0.4","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null},{"name":"heapsize_plugin","req":"^0.1.2","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null}],"cksum":"a91d884b6667cd606bb5a69aa0c99ba811a115fc68915e7056ec08a46e93199a","features":{"heap_size":["heapsize","heapsize_plugin"],"heapsize":["dep:heapsize"],"heapsize_plugin":["dep:heapsize_plugin"]},"yanked":false}"#
+        r#"{"name":"language-tags","vers":"0.2.2","deps":[{"name":"heapsize","req":">=0.2.2, <0.4","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null},{"name":"heapsize_plugin","req":"^0.1.2","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null}],"cksum":"a91d884b6667cd606bb5a69aa0c99ba811a115fc68915e7056ec08a46e93199a","features":{"heap_size":["heapsize","heapsize_plugin"],"heapsize":["dep:heapsize"],"heapsize_plugin":["dep:heapsize_plugin"]},"yanked":false}"#
     );
 
     // Modify the Cargo.toml to swap an existing library, add a new one and delete another
@@ -614,8 +614,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
         .unwrap();
     assert_eq!(
         contents,
-        r#"{"name":"lazy_static","vers":"0.2.11","deps":[{"name":"compiletest_rs","req":"^0.3","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null},{"name":"spin","req":"^0.4.6","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null}],"cksum":"76f033c7ad61445c5b347c7382dd1237847eb1bce590fe50365dcb33d546be73","features":{"compiletest":["compiletest_rs"],"compiletest_rs":["dep:compiletest_rs"],"nightly":[],"spin":["dep:spin"],"spin_no_std":["nightly","spin"]},"yanked":false}
-{"name":"lazy_static","vers":"1.2.0","deps":[{"name":"spin","req":"^0.4.10","features":["once"],"optional":true,"default_features":false,"target":null,"kind":null,"package":null}],"cksum":"a374c89b9db55895453a74c1e38861d9deec0b01b405a82516e9d5de4820dea1","features":{"nightly":[],"spin":["dep:spin"],"spin_no_std":["spin"]},"yanked":false}"#
+        r#"{"name":"lazy_static","vers":"0.2.11","deps":[{"name":"compiletest_rs","req":"^0.3","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null},{"name":"spin","req":"^0.4.6","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null}],"cksum":"76f033c7ad61445c5b347c7382dd1237847eb1bce590fe50365dcb33d546be73","features":{"compiletest":["compiletest_rs"],"compiletest_rs":["dep:compiletest_rs"],"nightly":[],"spin":["dep:spin"],"spin_no_std":["nightly","spin"]},"yanked":false}
+{"name":"lazy_static","vers":"1.2.0","deps":[{"name":"spin","req":"^0.4.10","features":["once"],"optional":true,"default_features":false,"target":null,"kind":null,"package":null,"registry":null}],"cksum":"a374c89b9db55895453a74c1e38861d9deec0b01b405a82516e9d5de4820dea1","features":{"nightly":[],"spin":["dep:spin"],"spin_no_std":["spin"]},"yanked":false}"#
     );
 
     contents.clear();
@@ -625,7 +625,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
         .unwrap();
     assert_eq!(
         contents,
-        r#"{"name":"lazycell","vers":"1.2.1","deps":[{"name":"clippy","req":"^0.0","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null}],"cksum":"b294d6fa9ee409a054354afc4352b0b9ef7ca222c69b8812cbea9e7d2bf3783f","features":{"clippy":["dep:clippy"],"nightly":[],"nightly-testing":["clippy","nightly"]},"yanked":false}"#
+        r#"{"name":"lazycell","vers":"1.2.1","deps":[{"name":"clippy","req":"^0.0","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null}],"cksum":"b294d6fa9ee409a054354afc4352b0b9ef7ca222c69b8812cbea9e7d2bf3783f","features":{"clippy":["dep:clippy"],"nightly":[],"nightly-testing":["clippy","nightly"]},"yanked":false}"#
     );
 
     contents.clear();
@@ -635,7 +635,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
         .unwrap();
     assert_eq!(
         contents,
-        r#"{"name":"language-tags","vers":"0.2.2","deps":[{"name":"heapsize","req":">=0.2.2, <0.4","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null},{"name":"heapsize_plugin","req":"^0.1.2","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null}],"cksum":"a91d884b6667cd606bb5a69aa0c99ba811a115fc68915e7056ec08a46e93199a","features":{"heap_size":["heapsize","heapsize_plugin"],"heapsize":["dep:heapsize"],"heapsize_plugin":["dep:heapsize_plugin"]},"yanked":false}"#
+        r#"{"name":"language-tags","vers":"0.2.2","deps":[{"name":"heapsize","req":">=0.2.2, <0.4","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null},{"name":"heapsize_plugin","req":"^0.1.2","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null}],"cksum":"a91d884b6667cd606bb5a69aa0c99ba811a115fc68915e7056ec08a46e93199a","features":{"heap_size":["heapsize","heapsize_plugin"],"heapsize":["dep:heapsize"],"heapsize_plugin":["dep:heapsize_plugin"]},"yanked":false}"#
     );
 
     // Run for the third time -- delete unused (default)
@@ -658,7 +658,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
         .unwrap();
     assert_eq!(
         contents,
-        r#"{"name":"lazy_static","vers":"1.2.0","deps":[{"name":"spin","req":"^0.4.10","features":["once"],"optional":true,"default_features":false,"target":null,"kind":null,"package":null}],"cksum":"a374c89b9db55895453a74c1e38861d9deec0b01b405a82516e9d5de4820dea1","features":{"nightly":[],"spin":["dep:spin"],"spin_no_std":["spin"]},"yanked":false}"#
+        r#"{"name":"lazy_static","vers":"1.2.0","deps":[{"name":"spin","req":"^0.4.10","features":["once"],"optional":true,"default_features":false,"target":null,"kind":null,"package":null,"registry":null}],"cksum":"a374c89b9db55895453a74c1e38861d9deec0b01b405a82516e9d5de4820dea1","features":{"nightly":[],"spin":["dep:spin"],"spin_no_std":["spin"]},"yanked":false}"#
     );
 
     contents.clear();
@@ -668,7 +668,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
         .unwrap();
     assert_eq!(
         contents,
-        r#"{"name":"lazycell","vers":"1.2.1","deps":[{"name":"clippy","req":"^0.0","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null}],"cksum":"b294d6fa9ee409a054354afc4352b0b9ef7ca222c69b8812cbea9e7d2bf3783f","features":{"clippy":["dep:clippy"],"nightly":[],"nightly-testing":["clippy","nightly"]},"yanked":false}"#
+        r#"{"name":"lazycell","vers":"1.2.1","deps":[{"name":"clippy","req":"^0.0","features":[],"optional":true,"default_features":true,"target":null,"kind":null,"package":null,"registry":null}],"cksum":"b294d6fa9ee409a054354afc4352b0b9ef7ca222c69b8812cbea9e7d2bf3783f","features":{"clippy":["dep:clippy"],"nightly":[],"nightly-testing":["clippy","nightly"]},"yanked":false}"#
     );
 }
 
