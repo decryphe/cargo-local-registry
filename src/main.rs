@@ -6,6 +6,7 @@ use cargo::sources::PathSource;
 use cargo::util::GlobalContext;
 use cargo::util::errors::*;
 use cargo_platform::Platform;
+use cargo_util::Sha256;
 use clap::Parser as _;
 use flate2::write::GzEncoder;
 use rayon::prelude::*;
@@ -181,6 +182,13 @@ fn sync(
     let manifest = lockfile.parent().unwrap().join("Cargo.toml");
     let manifest = env::current_dir().unwrap().join(&manifest);
     let ws = Workspace::new(&manifest, config)?;
+
+    if options.git {
+        // Remove any checksums for git dependencies in Cargo.lock
+        // by regenerating lockfile after removing source replacement
+        cargo::ops::generate_lockfile(&ws).unwrap();
+    }
+
     let (packages, resolve) = cargo::ops::resolve_ws(&ws, /* dry_run */ false)
         .with_context(|| "failed to load pkg lockfile")?;
     packages.get_many(resolve.iter())?;
@@ -244,9 +252,9 @@ fn sync(
         };
 
         package_metadata.push((
-            dst,
+            dst.clone(),
             index_dst,
-            serde_json::to_string(&registry_pkg(pkg, &resolve)).unwrap(),
+            serde_json::to_string(&registry_pkg(pkg, &resolve, &dst)).unwrap(),
             id.version().to_string(),
         ));
     }
@@ -395,7 +403,7 @@ fn build_ar_from_files(
     Ok(())
 }
 
-fn registry_pkg(pkg: &Package, resolve: &Resolve) -> RegistryPackage {
+fn registry_pkg(pkg: &Package, resolve: &Resolve, crate_file: &Path) -> RegistryPackage {
     let id = pkg.package_id();
     let source_id = id.source_id();
     let pkg_url = source_id.url();
@@ -453,7 +461,13 @@ fn registry_pkg(pkg: &Package, resolve: &Resolve) -> RegistryPackage {
             .get(&id)
             .cloned()
             .unwrap_or_default()
-            .unwrap_or_default(),
+            .unwrap_or_else(|| {
+                // Manually add checksum as this is required for (local) registry dependencies
+                // but not normally present for git dependencies
+                let mut hasher = Sha256::new();
+                hasher.update_path(crate_file).unwrap();
+                hasher.finish_hex()
+            }),
         yanked: Some(false),
     }
 }
