@@ -112,6 +112,7 @@ fn main() {
         args.remove(1);
         Options::parse_from(args)
     };
+    println!("Beginning local registry sync...");
     let result = real_main(options, &mut config);
     if let Err(e) = result {
         cargo::exit_with_error(e.into(), &mut config.shell());
@@ -134,6 +135,7 @@ fn real_main(options: Options, config: &mut GlobalContext) -> CargoResult<()> {
     let path = Path::new(&options.path);
     let index = path.join("index");
 
+    println!("Creating index at {}", index.display());
     fs::create_dir_all(&index)
         .with_context(|| format!("failed to create index: `{}`", index.display()))?;
     let id = match options.host {
@@ -146,6 +148,7 @@ fn real_main(options: Options, config: &mut GlobalContext) -> CargoResult<()> {
         None => return Ok(()),
     };
 
+    println!("Beginning lockfile sync...");
     sync(Path::new(lockfile), &path, &options, config).with_context(|| "failed to sync")?;
 
     let registry_path = config.cwd().join(path);
@@ -189,6 +192,7 @@ fn sync(
         cargo::ops::generate_lockfile(&ws).unwrap();
     }
 
+    println!("Resolving workspace...");
     let (packages, resolve) = cargo::ops::resolve_ws(&ws, /* dry_run */ false)
         .with_context(|| "failed to load pkg lockfile")?;
     packages.get_many(resolve.iter())?;
@@ -197,7 +201,9 @@ fn sync(
     let mut file_tasks = Vec::new();
     let mut package_metadata = Vec::new();
 
-    for id in resolve.iter() {
+    for package in packages.packages() {
+        let id = package.package_id();
+
         if id.source_id().is_git() {
             if !options.git {
                 continue;
@@ -205,10 +211,21 @@ fn sync(
         } else if !id.source_id().is_registry() {
             continue;
         }
-        let registry_id = id.source_id();
-        let hash = cargo::util::hex::short_hash(&registry_id);
-        let ident = registry_id.url().host().unwrap().to_string();
-        let part = format!("{}-{}", ident, hash);
+
+        let manifest_path_relative = package
+            .manifest_path()
+            .strip_prefix(config.registry_source_path().as_path_unlocked())
+            .with_context(|| "manifest was not located in source path")?;
+        let registry_path_component = manifest_path_relative
+            .components()
+            .next()
+            .with_context(|| "registry-component missing in path")?;
+
+        // The identifier is dependent on the context where it gets generated.
+        // The default crates-io registry ends up with a github.com-ident,
+        // instead of index.crates.io, such that the crate files are not found
+        // in the later copy step.
+        let part = format!("{}", registry_path_component.as_os_str().display());
 
         let cache = config.registry_cache_path().join(&part);
 
@@ -265,9 +282,13 @@ fn sync(
         .try_for_each(|task| -> Result<(), anyhow::Error> {
             match task {
                 FileTask::Copy { src, dst } => {
+                    let is_new_file = !dst.exists();
                     fs::copy(src, dst).with_context(|| {
                         format!("failed to copy `{}` to `{}`", src.display(), dst.display())
                     })?;
+                    if is_new_file {
+                        println!("Copied `{}`", src.file_name().unwrap().display());
+                    }
                 }
                 FileTask::CreateArchive {
                     files,
